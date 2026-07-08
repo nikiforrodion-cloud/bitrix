@@ -1,0 +1,35 @@
+name: Daily Bitrix24 Funnel Report
+
+on:
+  schedule:
+    # 10:20 Moscow time = 07:20 UTC.
+    - cron: '20 7 * * 1-5'
+  workflow_dispatch:
+
+jobs:
+  send-report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Send Bitrix24 report
+        env:
+          BITRIX24_WEBHOOK_URL: ${{ secrets.BITRIX24_WEBHOOK_URL }}
+          BITRIX24_FUNNEL_NAME: ${{ vars.BITRIX24_FUNNEL_NAME || 'КПК - СПб' }}
+          BITRIX24_REPORT_RECIPIENT_USER_ID: ${{ vars.BITRIX24_REPORT_RECIPIENT_USER_ID || '123874' }}
+          BITRIX24_REPORT_TIME: '10:20'
+          BITRIX24_TIMEZONE: 'Europe/Moscow'
+          BITRIX24_INCLUDE_FINAL_STAGES: '0'
+          BITRIX24_ONLY_OPEN_DEALS: '1'
+          BITRIX24_MAX_DEAL_PAGES: '200'
+          BITRIX24_SHOW_ZERO_STAGES: '0'
+          BITRIX24_DELIVERY_METHOD: 'message'
+        run: node report.mjs
