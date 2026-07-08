@@ -1,0 +1,14 @@
+{
+  "name": "bitrix24-funnel-agent",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Standalone Bitrix24 daily CRM funnel report agent.",
+  "type": "module",
+  "scripts": {
+    "report": "node report.mjs",
+    "dry-run": "BITRIX24_DRY_RUN=1 node report.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
