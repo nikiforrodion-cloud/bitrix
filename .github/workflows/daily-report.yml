@@ -3,7 +3,7 @@ name: Daily Bitrix24 Funnel Report
 on:
   schedule:
     # 10:20 Moscow time = 07:20 UTC.
-    - cron: '20 7 * * 1-5'
+    - cron: '30 7 * * 1-5'
   workflow_dispatch:
 
 jobs:
